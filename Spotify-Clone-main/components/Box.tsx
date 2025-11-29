@@ -1,15 +1,12 @@
-import { twMerge } from 'tailwind-merge';
+import React from "react";
 
-interface BoxProps {
+interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
-  className?: string;
 }
 
-const Box: React.FC<BoxProps> = ({ children, className }) => {
+const Box: React.FC<BoxProps> = ({ children, className = "", ...props }) => {
   return (
-    <div
-      className={twMerge(`bg-neutral-900 rounded-lg h-fit w-full`, className)}
-    >
+    <div className={className} {...props}>
       {children}
     </div>
   );
