@@ -1,13 +1,34 @@
-'use client';
+"use client";
 
-import { MyUserContextProvider } from '@/hooks/useUser';
+import React, { createContext, useContext } from "react";
 
-interface UserProviderProps {
-  children: React.ReactNode;
+interface UserContextType {
+  isLoading: boolean;
+  user: null;
+  subscription: null;
 }
 
-const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-  return <MyUserContextProvider>{children}</MyUserContextProvider>;
+const UserContext = createContext<UserContextType>({
+  isLoading: false,
+  user: null,
+  subscription: null,
+});
+
+export const useUser = () => useContext(UserContext);
+
+export const UserProvider = ({ children }: { children: React.ReactNode }) => {
+  // For demo: no Supabase auth, just provide a dummy user context
+  return (
+    <UserContext.Provider
+      value={{
+        isLoading: false,
+        user: null,
+        subscription: null,
+      }}
+    >
+      {children}
+    </UserContext.Provider>
+  );
 };
 
 export default UserProvider;
